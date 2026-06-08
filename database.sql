@@ -111,3 +111,23 @@ insert into tb_productos values ('P0020','Mejoralito UForte',10,0.99,5,1,1);
 SELECT * FROM tb_usuarios;
 SELECT * FROM tb_productos;
 select * from tb_categorias;
+
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS sp_validar_usuario$$
+
+CREATE PROCEDURE sp_validar_usuario(
+    IN  p_usuario   CHAR(45),
+    IN  p_clave     CHAR(100),
+    OUT p_resultado INT
+)
+BEGIN
+    SELECT COUNT(*) INTO p_resultado
+    FROM tb_usuarios
+    WHERE usr_usua = p_usuario
+      AND cla_usua = p_clave
+      AND est_usua = 1;
+END$$
+
+DELIMITER ;
